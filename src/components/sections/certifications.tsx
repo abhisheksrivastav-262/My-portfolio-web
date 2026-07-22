@@ -1,22 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GlassCard } from "../ui/glass-card";
 import { ShieldCheck } from "lucide-react";
+import { GlassCard } from "../ui/glass-card";
 
 const certifications = [
-  {
-    title: "AWS Certified Developer – Associate",
-    issuer: "Amazon Web Services",
-    date: "2024",
-    description: "Demonstrated proficiency in developing, deploying, and debugging cloud-based applications using AWS."
-  },
-  {
-    title: "Meta Front-End Developer",
-    issuer: "Coursera",
-    date: "2023",
-    description: "Mastered React, UI/UX principles, and advanced state management for complex web applications."
-  },
   {
     title: "Full Stack Open",
     issuer: "University of Helsinki",
@@ -50,10 +38,8 @@ export function CertificationsSection() {
                 {cert.date}
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">{cert.title}</h3>
-              <h4 className="text-sm text-white/60 mb-4">{cert.issuer}</h4>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                {cert.description}
-              </p>
+              <p className="text-sm text-white/50 mb-1">{cert.issuer}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{cert.description}</p>
             </GlassCard>
           ))}
         </div>

@@ -9,7 +9,7 @@ export function ToolsSection() {
     <section className="py-32 relative z-10 border-t border-white/5 bg-[#020202]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -36,7 +36,7 @@ export function ToolsSection() {
             </div>
             <div className="space-y-6">
               {[
-                { name: "MacBook Pro M2", desc: "Primary daily driver for all development." },
+                { name: "MacBook Air M1", desc: "Primary daily driver for all development." },
                 { name: "27\" 4K Monitor", desc: "Dual setup for maximum screen real estate." },
                 { name: "Mechanical Keyboard", desc: "Custom built with tactile switches." }
               ].map((item, i) => (

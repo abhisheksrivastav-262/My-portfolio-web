@@ -54,16 +54,19 @@ export function GithubStatsSection() {
           <h3 className="text-xl font-bold text-white mb-6">Contribution Graph</h3>
           <div className="flex gap-1 opacity-50 flex-wrap">
             {/* Generating fake github squares for visual aesthetic */}
-            {Array.from({ length: 364 }).map((_, i) => (
-              <div 
-                key={i} 
-                className={`w-3 h-3 rounded-[2px] ${
-                  Math.random() > 0.8 ? 'bg-primary' : 
-                  Math.random() > 0.6 ? 'bg-primary/60' : 
-                  Math.random() > 0.4 ? 'bg-primary/30' : 'bg-white/10'
-                }`}
-              />
-            ))}
+            {Array.from({ length: 364 }).map((_, i) => {
+              const val = (i * 17) % 10;
+              return (
+                <div 
+                  key={i} 
+                  className={`w-3 h-3 rounded-[2px] ${
+                    val > 8 ? 'bg-primary' : 
+                    val > 6 ? 'bg-primary/60' : 
+                    val > 4 ? 'bg-primary/30' : 'bg-white/10'
+                  }`}
+                />
+              );
+            })}
           </div>
         </motion.div>
       </div>

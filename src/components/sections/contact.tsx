@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { GlassCard } from "../ui/glass-card";
-import { Mail, MessageSquare, Calendar } from "lucide-react";
+import { Mail, MessageSquare, Calendar, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -11,32 +12,35 @@ export function ContactSection() {
     email: "",
     message: ""
   });
+  const [isSending, setIsSending] = useState(false);
 
-  const handleEmailSend = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent | React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       alert("Please fill in all fields before sending.");
       return;
     }
     
-    const subject = `Portfolio Contact from ${formData.name}`;
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-    const mailtoUrl = `mailto:abhisheksrivastav262@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    window.location.href = mailtoUrl;
-  };
-
-  const handleWhatsAppSend = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Please fill in all fields before sending.");
-      return;
+    setIsSending(true);
+    try {
+      if (supabase) {
+        const { error } = await supabase.from("messages").insert([{
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          read: false
+        }]);
+        if (error) throw error;
+      } else {
+        console.log("Supabase client not configured. Message payload:", formData);
+      }
+      alert("Thank you! Your message has been sent successfully.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      alert(err.message || "Failed to send message. Please try again.");
+    } finally {
+      setIsSending(false);
     }
-
-    const text = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-    const waUrl = `https://wa.me/918140353442?text=${encodeURIComponent(text)}`;
-    
-    window.open(waUrl, "_blank");
   };
 
   return (
@@ -77,7 +81,7 @@ export function ContactSection() {
 
             <div className="lg:col-span-3">
               <GlassCard className="p-8 md:p-12" hoverEffect={false}>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium text-white/80">Name</label>
@@ -117,24 +121,14 @@ export function ContactSection() {
                     />
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button 
-                      type="button"
-                      onClick={handleEmailSend}
-                      className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-all cursor-pointer"
-                    >
-                      <Mail className="w-5 h-5" />
-                      Send via Email
-                    </button>
-                    <button 
-                      type="button"
-                      onClick={handleWhatsAppSend}
-                      className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-[#25D366] text-white font-bold text-lg hover:bg-[#20ba5a] transition-all cursor-pointer animate-pulse-subtle"
-                    >
-                      <MessageSquare className="w-5 h-5" />
-                      Send via WhatsApp
-                    </button>
-                  </div>
+                  <button 
+                    type="submit"
+                    disabled={isSending}
+                    className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                    Send Message
+                  </button>
                 </form>
               </GlassCard>
             </div>

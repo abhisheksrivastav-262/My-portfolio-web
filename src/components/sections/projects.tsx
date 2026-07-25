@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { TextReveal } from "../ui/text-reveal";
+import { supabase } from "@/lib/supabase";
 
 interface Project {
   id: string;
@@ -214,8 +215,40 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [projectList, setProjectList] = useState<Project[]>(PROJECTS);
 
-  const filteredProjects = PROJECTS.filter(p => activeCategory === "All" || p.category === activeCategory);
+  useEffect(() => {
+    async function fetchProjects() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("*")
+          .eq("display", true)
+          .order("sort_order", { ascending: true });
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const mapped: Project[] = data.map((d: any) => ({
+            id: d.id,
+            name: d.title,
+            description: d.description,
+            url: d.live_url,
+            category: d.category,
+            tags: d.tech_stack,
+            image: d.thumbnail_url
+          }));
+          setProjectList(mapped);
+        }
+      } catch (err) {
+        console.error("Error loading projects from DB, falling back to static:", err);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  const filteredProjects = projectList.filter(p => activeCategory === "All" || p.category === activeCategory);
 
   return (
     <section id="projects" className="py-32 relative z-10 border-t border-white/5 bg-[#02010a]">

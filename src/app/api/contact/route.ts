@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   try {
@@ -8,6 +9,21 @@ export async function POST(req: Request) {
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    // Save to Supabase messages if database client is initialized
+    if (supabase) {
+      try {
+        await supabase.from('messages').insert([{
+          name,
+          email,
+          subject,
+          message,
+          read: false
+        }]);
+      } catch (dbErr) {
+        console.error('Failed to log message to Supabase database:', dbErr);
+      }
     }
 
     // Configure nodemailer transport

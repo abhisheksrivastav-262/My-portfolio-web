@@ -1,14 +1,45 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { Download, Heart, ArrowUp, Phone, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
 import { MagneticButton } from "../ui/magnetic-button";
+import { supabase } from "@/lib/supabase";
 
 export function Footer() {
+  const pathname = usePathname();
+  const [resumeUrl, setResumeUrl] = useState("/resume.pdf");
+
+  useEffect(() => {
+    async function fetchResume() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase
+          .from("resume")
+          .select("file_url")
+          .eq("id", "00000000-0000-0000-0000-000000000002")
+          .single();
+
+        if (error) throw error;
+        if (data?.file_url) {
+          setResumeUrl(data.file_url);
+        }
+      } catch (err) {
+        // Safe fallback
+      }
+    }
+    fetchResume();
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="relative bg-[#02010a] pt-32 pb-12 overflow-hidden border-t border-white/5">
@@ -45,7 +76,7 @@ export function Footer() {
             <div className="flex flex-wrap gap-4">
               <MagneticButton>
                 <a 
-                  href="/resume.pdf" 
+                  href={resumeUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold transition-all text-sm"
@@ -55,7 +86,7 @@ export function Footer() {
               </MagneticButton>
               <MagneticButton>
                 <a 
-                  href="/resume.pdf" 
+                  href={resumeUrl} 
                   download 
                   className="flex items-center gap-3 px-6 py-3 rounded-full bg-primary hover:bg-primary/95 text-white font-semibold transition-all text-sm shadow-[0_0_20px_rgba(139,92,246,0.3)]"
                 >

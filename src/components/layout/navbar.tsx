@@ -27,6 +27,10 @@ export function Navbar() {
     setScrolled(y > 50);
   });
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <motion.header
       className={cn(

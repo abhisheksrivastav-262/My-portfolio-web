@@ -1,11 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Download, Eye, GraduationCap, Briefcase, Award, Phone, Mail, MapPin, Calendar, CheckCircle2 } from "lucide-react";
 import { GlassCard } from "../ui/glass-card";
 import { MagneticButton } from "../ui/magnetic-button";
+import { supabase } from "@/lib/supabase";
 
 export function ResumePreviewSection() {
+  const [resumeUrl, setResumeUrl] = useState("/resume.pdf");
+
+  useEffect(() => {
+    async function fetchResume() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase
+          .from("resume")
+          .select("file_url")
+          .eq("id", "00000000-0000-0000-0000-000000000002")
+          .single();
+
+        if (error) throw error;
+        if (data?.file_url) {
+          setResumeUrl(data.file_url);
+        }
+      } catch (err) {
+        // Safe fallback
+      }
+    }
+    fetchResume();
+  }, []);
+
   return (
     <section id="resume-preview" className="py-32 relative z-10 border-t border-white/5 bg-[#02010a]">
       <div className="container mx-auto px-6">
@@ -27,11 +52,11 @@ export function ResumePreviewSection() {
           >
             Preview my qualifications directly or download the official copy.
           </motion.p>
-
+ 
           <div className="flex justify-center gap-4 mb-16">
             <MagneticButton>
               <a 
-                href="/resume.pdf" 
+                href={resumeUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 text-white font-bold transition-all text-sm"
@@ -42,7 +67,7 @@ export function ResumePreviewSection() {
             </MagneticButton>
             <MagneticButton>
               <a 
-                href="/resume.pdf" 
+                href={resumeUrl} 
                 download
                 className="flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primary/90 text-white font-bold transition-all text-sm shadow-[0_0_20px_rgba(139,92,246,0.3)]"
               >

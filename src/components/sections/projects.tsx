@@ -162,50 +162,53 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className={`group relative block w-full rounded-[2rem] bg-white/5 border border-white/10 overflow-hidden cursor-pointer shadow-2xl ${project.category === 'Featured' ? 'h-[600px] md:col-span-2' : 'h-[480px]'}`}
+      className="group relative flex flex-col w-full rounded-[2rem] bg-white/5 border border-white/10 overflow-hidden cursor-pointer shadow-2xl h-[560px]"
     >
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 mix-blend-screen"
         style={{ background: "radial-gradient(circle at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 70%)" }}
       />
       
-      <div className="absolute inset-0 z-0 h-full w-full overflow-hidden rounded-[2rem]">
+      {/* 16:9 Thumbnail Container */}
+      <div className="relative w-full aspect-video overflow-hidden bg-black/40 rounded-t-[2rem] border-b border-white/5 flex items-center justify-center flex-shrink-0">
         <motion.img 
           src={project.image} 
           alt={project.name}
-          className="h-full w-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-110"
+          className="w-full h-full object-contain transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors duration-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
 
       <div 
-        className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col items-start"
+        className="flex-1 p-6 flex flex-col justify-between z-10"
         style={{ transform: "translateZ(40px)" }}
       >
-        <h3 className={`${project.category === 'Featured' ? 'text-4xl md:text-5xl' : 'text-3xl'} font-black text-white mb-4 group-hover:text-primary transition-colors duration-300`}>
-          {project.name}
-        </h3>
-        
-        <p className="text-white/80 line-clamp-2 mb-8 text-lg max-w-2xl">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-8">
-          {project.tags.map((tag) => (
-            <span 
-              key={tag}
-              className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold uppercase tracking-wider text-white"
-            >
-              {tag}
-            </span>
-          ))}
+        <div>
+          <h3 className="text-2xl md:text-3xl font-black text-white mb-3 group-hover:text-primary transition-colors duration-300">
+            {project.name}
+          </h3>
+          
+          <p className="text-white/80 line-clamp-2 mb-4 text-base">
+            {project.description}
+          </p>
         </div>
 
-        <div className="w-fit">
-          <div className="flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold tracking-wide shadow-[0_0_20px_rgba(139,92,246,0.3)] group-hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] group-hover:scale-105 transition-all">
-            <span>🚀 Live Preview</span>
+        <div>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tags.map((tag) => (
+              <span 
+                key={tag}
+                className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold uppercase tracking-wider text-white"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="w-fit">
+            <div className="flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold tracking-wide shadow-[0_0_20px_rgba(139,92,246,0.3)] group-hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] group-hover:scale-105 transition-all">
+              <span>🚀 Live Preview</span>
+            </div>
           </div>
         </div>
       </div>
@@ -241,8 +244,8 @@ export function ProjectsSection() {
           }));
           setProjectList(mapped);
         }
-      } catch (err) {
-        console.error("Error loading projects from DB, falling back to static:", err);
+      } catch (err: any) {
+        console.error("Error loading projects from DB, falling back to static:", err?.message || err?.details || err);
       }
     }
     fetchProjects();

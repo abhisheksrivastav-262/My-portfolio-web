@@ -181,7 +181,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       <div 
-        className="absolute inset-0 z-10 flex flex-col justify-end p-8 md:p-12"
+        className="absolute inset-0 z-10 flex flex-col justify-end items-start p-8 md:p-12"
         style={{ transform: "translateZ(40px)" }}
       >
         <h3 className={`${project.category === 'Featured' ? 'text-4xl md:text-5xl' : 'text-3xl'} font-black text-white mb-4 group-hover:text-primary transition-colors duration-300`}>

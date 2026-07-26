@@ -544,7 +544,7 @@ export default function ProjectsAdminPage() {
         ) : projects.length === 0 ? (
           <p className="text-white/40 text-center py-16">No projects found. Add your first project.</p>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-white/5 text-left text-xs font-bold text-white/40 uppercase tracking-wider">
@@ -601,7 +601,7 @@ export default function ProjectsAdminPage() {
                             </a>
                           )}
                         </div>
-                        <p className="text-white/60 text-xs line-clamp-1">{proj.description}</p>
+                        <p className="text-white/60 text-xs max-h-20 overflow-y-auto pr-1">{proj.description}</p>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {proj.tech_stack.slice(0, 3).map((tag) => (
                             <span key={tag} className="text-[10px] font-bold bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-white/70">

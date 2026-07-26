@@ -132,7 +132,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 md:h-screen md:overflow-y-auto p-6 md:p-12 relative z-10">
+      <main data-lenis-prevent className="flex-1 md:h-screen md:overflow-y-auto p-6 md:p-12 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}
@@ -140,7 +140,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.3 }}
-            className="h-full w-full max-w-7xl mx-auto"
+            className="min-h-full w-full max-w-7xl mx-auto"
           >
             {children}
           </motion.div>

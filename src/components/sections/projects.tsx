@@ -162,7 +162,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="group relative flex flex-col w-full rounded-[2rem] bg-white/5 border border-white/10 overflow-hidden cursor-pointer shadow-2xl h-[560px]"
+      className="group relative flex flex-col w-full rounded-[2rem] bg-white/5 border border-white/10 overflow-hidden cursor-pointer shadow-2xl min-h-[560px]"
     >
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 mix-blend-screen"

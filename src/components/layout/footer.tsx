@@ -121,12 +121,20 @@ export function Footer() {
             © {new Date().getFullYear()} Abhishek Srivastav. Built with <Heart className="w-4 h-4 text-primary fill-primary" />
           </p>
           
-          <button 
-            onClick={scrollToTop}
-            className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-muted-foreground hover:text-white hover:border-white/20 transition-all"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-6">
+            <Link 
+              href="/admin/login" 
+              className="text-xs text-muted-foreground hover:text-white transition-colors"
+            >
+              Admin
+            </Link>
+            <button 
+              onClick={scrollToTop}
+              className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-muted-foreground hover:text-white hover:border-white/20 transition-all"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

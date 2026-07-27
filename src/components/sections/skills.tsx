@@ -23,11 +23,12 @@ const skillCategories = [
     ]
   },
   {
-    category: "DevOps & AI",
+    category: "DevOps & Deployment",
     skills: [
-      { name: "AI-assisted Development", level: 98 },
-      { name: "Prompt Engineering", level: 95 },
-      { name: "Vercel / Netlify", level: 90 }
+      { name: "Git / GitHub", level: 90 },
+      { name: "Vercel / Netlify", level: 90 },
+      { name: "Supabase / PostgreSQL", level: 85 },
+      { name: "Performance Optimization", level: 88 }
     ]
   }
 ];
@@ -59,15 +60,15 @@ export function SkillsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {skillCategories.map((categoryGroup, idx) => (
             <GlassCard key={idx} delay={idx * 0.1} className="p-8">
-              <h3 className="text-2xl font-black mb-8 text-white">{categoryGroup.category}</h3>
+              <h3 className="text-2xl font-black mb-8 text-foreground">{categoryGroup.category}</h3>
               <div className="space-y-6">
                 {categoryGroup.skills.map((item, i) => (
                   <div key={i} className="group cursor-pointer">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="font-bold text-white/90 group-hover:text-primary transition-colors text-sm">{item.name}</span>
+                      <span className="font-bold text-foreground/90 group-hover:text-primary transition-colors text-sm">{item.name}</span>
                       <span className="text-xs text-muted-foreground font-mono">{item.level}%</span>
                     </div>
-                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
                         whileInView={{ width: `${item.level}%` }}

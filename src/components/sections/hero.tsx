@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { MagneticButton } from "../ui/magnetic-button";
-import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { GlassCard } from "../ui/glass-card";
 
 const TYPEWRITER_TEXTS = [
-  "Modern Web Applications",
-  "Scalable Systems",
-  "Beautiful Interfaces",
-  "AI-Integrated Products"
+  "Professional Websites",
+  "Business Websites",
+  "E-Commerce Websites",
+  "Landing Pages",
 ];
 
 export function HeroSection() {
@@ -27,8 +27,8 @@ export function HeroSection() {
   const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
-  const transformX = useTransform(springX, x => typeof window !== 'undefined' ? x - window.innerWidth / 2 : 0);
-  const transformY = useTransform(springY, y => typeof window !== 'undefined' ? y - window.innerHeight / 2 : 0);
+  const transformX = useTransform(springX, x => typeof window !== "undefined" ? x - window.innerWidth / 2 : 0);
+  const transformY = useTransform(springY, y => typeof window !== "undefined" ? y - window.innerHeight / 2 : 0);
 
   useEffect(() => {
     setMounted(true);
@@ -46,7 +46,7 @@ export function HeroSection() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       const currentFullText = TYPEWRITER_TEXTS[textIndex];
-      
+
       if (!isDeleting && charIndex < currentFullText.length) {
         setText(currentFullText.slice(0, charIndex + 1));
         setCharIndex(c => c + 1);
@@ -68,29 +68,35 @@ export function HeroSection() {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Aurora / Spotlight */}
       {mounted && (
-        <motion.div 
-          className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen hidden md:block"
+        <motion.div
+          className="absolute inset-0 z-0 opacity-40 dark:opacity-30 pointer-events-none mix-blend-screen dark:mix-blend-screen hidden md:block"
           style={{
-            background: "radial-gradient(800px circle at var(--x) var(--y), rgba(37, 99, 235, 0.15), transparent 45%)",
+            background: "radial-gradient(800px circle at var(--x) var(--y), rgba(139, 92, 246, 0.15), transparent 45%)",
             x: transformX,
-            y: transformY
+            y: transformY,
           }}
         />
       )}
-      
+
+      {/* Light Mode Abstract Graphic shapes */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden block dark:hidden">
+        <div className="absolute top-[10%] left-[5%] w-72 h-72 rounded-full bg-primary/5 filter blur-2xl" />
+        <div className="absolute bottom-[10%] right-[5%] w-96 h-96 rounded-full bg-secondary/5 filter blur-3xl" />
+      </div>
+
       {/* Animated noise overlay */}
       <div className="noise-bg" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.12),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--primary-glow,rgba(139,92,246,0.12)),transparent_50%)] pointer-events-none" />
 
       {/* Floating Particles */}
       {mounted && Array.from({ length: 20 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-white/20 rounded-full"
+          className="absolute w-1 h-1 bg-foreground/20 rounded-full"
           initial={{
-            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-            y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
-            opacity: Math.random() * 0.5 + 0.1,
+            x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000),
+            y: Math.random() * (typeof window !== "undefined" ? window.innerHeight : 1000),
+            opacity: Math.random() * 0.4 + 0.1,
           }}
           animate={{
             y: [null, Math.random() * -200],
@@ -106,30 +112,31 @@ export function HeroSection() {
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         <GlassCard tilt3d={true} hoverEffect={true} className="p-8 md:p-16 max-w-4xl w-full text-center">
+          {/* Offer Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-md mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/40 backdrop-blur-md mb-8"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
             </span>
-            <span className="text-sm font-medium text-white/80 tracking-wide uppercase">Available for Work</span>
+            <span className="text-sm font-semibold text-foreground/80 tracking-wide uppercase">🔥 LIMITED TIME OFFER</span>
             <Sparkles className="w-4 h-4 text-secondary ml-1 animate-pulse" />
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[1.1] min-h-[100px] md:min-h-[80px]"
           >
-            Building{" "}
+            Premium Websites for{" "}
             <span className="text-gradient relative inline-block">
               {text}
-              <span className="absolute -right-6 top-0 animate-pulse text-white">|</span>
+              <span className="absolute -right-6 top-0 animate-pulse text-foreground">|</span>
             </span>
           </motion.h1>
 
@@ -137,10 +144,20 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-12 font-medium mx-auto"
+            className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-6 font-medium mx-auto"
           >
-            Hi, I'm Abhishek Srivastav. An AI Full Stack Web Developer focused on crafting premium digital experiences.
+            Professional websites, business websites, portfolio websites, e-commerce websites, landing pages and custom web applications built with modern technologies at affordable pricing.
           </motion.p>
+
+          {/* Price Offer */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/30 mb-12"
+          >
+            <span className="text-base font-bold text-foreground">🔥 Professional Website Starting at Just ₹299</span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -149,20 +166,20 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
             <MagneticButton>
-              <a 
-                href="/projects" 
-                className="px-8 py-4 rounded-full bg-white text-black font-bold text-lg hover:bg-white/90 transition-all flex items-center gap-2 group shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              <a
+                href="/contact"
+                className="px-8 py-4 rounded-full bg-foreground text-background font-bold text-lg hover:opacity-90 transition-all flex items-center gap-2 group shadow-lg"
               >
-                Explore My Work
+                Get Started
                 <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
               </a>
             </MagneticButton>
             <MagneticButton>
-              <a 
-                href="/contact" 
-                className="px-8 py-4 rounded-full bg-transparent border border-white/20 text-white font-bold text-lg hover:bg-white/5 transition-all"
+              <a
+                href="/projects"
+                className="px-8 py-4 rounded-full bg-background border border-border text-foreground font-bold text-lg hover:bg-muted/50 transition-all"
               >
-                Get In Touch
+                View Portfolio
               </a>
             </MagneticButton>
           </motion.div>
@@ -175,17 +192,19 @@ export function HeroSection() {
             className="flex gap-6 justify-center mt-12"
           >
             {[
-              { icon: FaGithub, href: "https://github.com/abhisheksrivastav-262" },
-              { icon: FaLinkedin, href: "https://www.linkedin.com/in/abhishek-srivastav-681ab1257" },
-              { icon: FaGlobe, href: "https://vercel.com/abhi262" },
+              { icon: FaGithub, href: "https://github.com/abhisheksrivastav-262", label: "GitHub" },
+              { icon: FaLinkedin, href: "https://www.linkedin.com/in/abhishek-srivastav-681ab1257", label: "LinkedIn" },
+              { icon: FaInstagram, href: "https://instagram.com/abhitechnologies262", label: "Instagram" },
+              { icon: FaWhatsapp, href: "https://wa.me/918140353442", label: "WhatsApp" },
             ].map((social, i) => (
               <motion.a
                 key={i}
-                whileHover={{ y: -5, scale: 1.1, color: "#8B5CF6" }}
+                whileHover={{ y: -5, scale: 1.1, color: "var(--primary)" }}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-white transition-colors"
+                aria-label={social.label}
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <social.icon className="w-6 h-6" />
               </motion.a>
@@ -195,7 +214,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -204,7 +223,7 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-8 h-12 rounded-full border-2 border-white/20 flex justify-center p-2"
+          className="w-8 h-12 rounded-full border-2 border-border flex justify-center p-2"
         >
           <div className="w-1.5 h-3 rounded-full bg-primary" />
         </motion.div>

@@ -52,8 +52,8 @@ export function GlassCard({ children, className, delay = 0, hoverEffect = true, 
       onMouseLeave={handleMouseLeave}
       style={tilt3d ? { rotateX, rotateY, transformStyle: "preserve-3d" } : undefined}
       className={cn(
-        "relative group rounded-3xl border border-white/5 bg-white/2 backdrop-blur-xl overflow-hidden shadow-2xl transition-all duration-300",
-        hoverEffect && "hover:border-white/10 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]",
+        "relative group rounded-3xl border border-border bg-card backdrop-blur-xl overflow-hidden shadow-2xl transition-all duration-300",
+        hoverEffect && "hover:border-primary/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]",
         className
       )}
     >

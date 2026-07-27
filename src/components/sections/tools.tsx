@@ -55,7 +55,7 @@ export function ToolsSection() {
             </div>
             <div className="space-y-6">
               {[
-                { name: "VS Code & Cursor", desc: "IDEs of choice, loaded with AI plugins." },
+                { name: "VS Code & Cursor", desc: "IDEs of choice with powerful extensions." },
                 { name: "Figma", desc: "For UI/UX design and prototyping." },
                 { name: "Arc Browser", desc: "For distraction-free web development." },
                 { name: "Warp Terminal", desc: "Rust-based, blazing fast terminal." }

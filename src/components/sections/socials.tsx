@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Mail, Phone, ExternalLink } from "lucide-react";
-import { FaGithub, FaLinkedin, FaGlobe, FaCloud } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 interface SocialCard {
   name: string;
@@ -29,22 +29,22 @@ const SOCIALS: SocialCard[] = [
     glowColor: "rgba(0, 119, 181, 0.2)"
   },
   {
-    name: "Vercel",
-    url: "https://vercel.com/abhi262",
-    icon: FaGlobe,
-    color: "text-[#000000] dark:text-white",
-    glowColor: "rgba(255, 255, 255, 0.15)"
+    name: "Instagram",
+    url: "https://instagram.com/abhitechnologies262",
+    icon: FaInstagram,
+    color: "text-[#E1306C]",
+    glowColor: "rgba(225, 48, 108, 0.2)"
   },
   {
-    name: "Netlify",
-    url: "https://app.netlify.com/teams/abhisheksrivastav-262/projects",
-    icon: FaCloud,
-    color: "text-[#00C7B7]",
-    glowColor: "rgba(0, 199, 183, 0.2)"
+    name: "WhatsApp",
+    url: "https://wa.me/918140353442",
+    icon: FaWhatsapp,
+    color: "text-[#25D366]",
+    glowColor: "rgba(37, 211, 102, 0.2)"
   },
   {
     name: "Email",
-    url: "mailto:abhisheksrivastav262@gmail.com",
+    url: "mailto:abhitechnologies262@gmail.com",
     icon: Mail,
     color: "text-[#EA4335]",
     glowColor: "rgba(234, 67, 53, 0.2)"
@@ -60,7 +60,7 @@ const SOCIALS: SocialCard[] = [
 
 function InteractiveCard({ social }: { social: SocialCard }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
-  
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -102,13 +102,13 @@ function InteractiveCard({ social }: { social: SocialCard }) {
       className="relative flex flex-col items-center justify-center p-8 rounded-3xl border border-white/5 bg-white/2 backdrop-blur-xl cursor-pointer overflow-hidden transition-all duration-300 group select-none h-48"
     >
       {/* Background Glow */}
-      <div 
+      <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-screen"
         style={{
           background: `radial-gradient(circle at 50% 50%, ${social.glowColor} 0%, transparent 60%)`
         }}
       />
-      
+
       {/* Interactive Border */}
       <div className="absolute inset-0 border border-transparent group-hover:border-primary/20 rounded-3xl transition-colors duration-500 pointer-events-none" />
 
@@ -133,13 +133,13 @@ export function SocialsSection() {
     <section className="py-24 relative z-10 border-t border-white/5 bg-[#030014]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-black mb-4 tracking-tight"
           >
-            Connect With Me
+            Connect With Us
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,7 @@ export function SocialsSection() {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
-            Find me on my social profiles and development platforms.
+            Find us on our social profiles and reach out through your preferred channel.
           </motion.p>
         </div>
 

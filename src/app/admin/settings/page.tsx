@@ -28,8 +28,8 @@ export default function SettingsAdminPage() {
     website_title: "Abhishek Srivastav - Full Stack Developer",
     seo_description: "Portfolio of Abhishek Srivastav, a Full Stack Web Developer building modern, scalable and high-performance web applications.",
     meta_keywords: "Developer, Full Stack, React, Next.js, Portfolio",
-    favicon_url: "/profile.jpg",
-    logo_url: "/profile.jpg",
+    favicon_url: "/logo.png",
+    logo_url: "/logo.png",
     og_image_url: "",
   });
 

@@ -8,18 +8,22 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { MouseGlow } from "@/components/ui/mouse-glow";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { PageTransition } from "@/components/ui/page-transition";
+import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
+  fallback: ["system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
 });
 
 export const metadata: Metadata = {
-  title: "Abhishek Srivastav - Full Stack Developer",
-  description: "Portfolio of Abhishek Srivastav, a Full Stack Web Developer building modern, scalable and high-performance web applications.",
+  title: "Abhi Technologies - Premium Web Development Agency",
+  description: "Professional websites, business websites, portfolio websites, e-commerce websites, landing pages and custom web applications built with modern technologies at affordable pricing. Starting at just ₹299.",
   icons: {
-    icon: "/profile.jpg",
+    icon: "/logo.png",
   }
 };
 
@@ -52,6 +56,8 @@ export default function RootLayout({
                 </PageTransition>
               </main>
               <Footer />
+              <WhatsAppFloat />
+              <ScrollToTop />
             </div>
           </ThemeProvider>
         </SmoothScroll>

@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: "What technologies do you primarily use?",
-    answer: "My core stack revolves around the React ecosystem, specifically Next.js for full-stack capabilities, Tailwind CSS for styling, Framer Motion for animations, and Node.js/PostgreSQL for backend services. I also integrate AI APIs heavily into modern projects."
+    answer: "Our core stack includes React / Next.js for full-stack capabilities, Tailwind CSS for styling, Framer Motion for animations, and Node.js / PostgreSQL for backend services. We use modern web development tools to build fast, scalable and responsive websites."
   },
   {
     question: "Do you provide ongoing maintenance after launch?",

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Download, Eye, GraduationCap, Briefcase, Award, Phone, Mail, MapPin, Calendar, CheckCircle2 } from "lucide-react";
+import { Download, Eye, Phone, Mail, MapPin } from "lucide-react";
 import { GlassCard } from "../ui/glass-card";
 import { MagneticButton } from "../ui/magnetic-button";
 import { supabase } from "@/lib/supabase";
@@ -35,7 +35,7 @@ export function ResumePreviewSection() {
     <section id="resume-preview" className="py-32 relative z-10 border-t border-white/5 bg-[#02010a]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -52,13 +52,13 @@ export function ResumePreviewSection() {
           >
             Preview my qualifications directly or download the official copy.
           </motion.p>
- 
+
           <div className="flex justify-center gap-4 mb-16">
             <MagneticButton>
-              <a 
-                href={resumeUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 text-white font-bold transition-all text-sm"
               >
                 <Eye className="w-4 h-4" />
@@ -66,8 +66,8 @@ export function ResumePreviewSection() {
               </a>
             </MagneticButton>
             <MagneticButton>
-              <a 
-                href={resumeUrl} 
+              <a
+                href={resumeUrl}
                 download
                 className="flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primary/90 text-white font-bold transition-all text-sm shadow-[0_0_20px_rgba(139,92,246,0.3)]"
               >
@@ -94,17 +94,18 @@ export function ResumePreviewSection() {
           <div className="border-b border-white/10 pb-8 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
               <h3 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">ABHISHEK SRIVASTAV</h3>
-              <p className="text-primary font-bold tracking-wide uppercase text-sm">AI Full Stack Web Developer</p>
+              <p className="text-primary font-bold tracking-wide uppercase text-sm">Founder & Full Stack Web Developer</p>
+              <p className="text-white/60 text-sm mt-1">Abhi Technologies</p>
             </div>
             <div className="flex flex-col gap-2 text-sm text-white/70">
               <a href="tel:+918140353442" className="flex items-center gap-2 hover:text-primary transition-colors">
                 <Phone className="w-4 h-4 text-primary" /> +91 8140353442
               </a>
-              <a href="mailto:abhisheksrivastav262@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Mail className="w-4 h-4 text-primary" /> abhisheksrivastav262@gmail.com
+              <a href="mailto:abhitechnologies262@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Mail className="w-4 h-4 text-primary" /> abhitechnologies262@gmail.com
               </a>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" /> Silvassa, India
+                <MapPin className="w-4 h-4 text-primary" /> Silvassa, Dadra & Nagar Haveli, India
               </div>
             </div>
           </div>
@@ -114,7 +115,7 @@ export function ResumePreviewSection() {
             <div>
               <h4 className="text-xl font-bold text-white mb-3 tracking-wide border-l-2 border-primary pl-3">Professional Summary</h4>
               <p className="text-muted-foreground leading-relaxed">
-                Motivated and detail-oriented Web Developer Intern with practical experience in building responsive and user-friendly websites using HTML, CSS, JavaScript, and AI-assisted development tools. Skilled in converting client requirements into functional web applications through effective prompt engineering and modern development practices. Passionate about learning new technologies, solving real-world problems, and contributing to innovative software development teams.
+                Founder of Abhi Technologies and a dedicated Full Stack Web Developer with 2+ years of experience delivering 100+ premium websites and web applications. Specialized in business websites, e-commerce stores, portfolio websites, admin dashboards and custom web applications. Committed to delivering modern designs, fast performance and exceptional client satisfaction at affordable pricing.
               </p>
             </div>
 
@@ -124,17 +125,16 @@ export function ResumePreviewSection() {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-start mb-2">
-                    <h5 className="font-bold text-white text-lg">Web Developer Intern</h5>
-                    <span className="text-sm font-bold text-primary">June 2026 – Present</span>
+                    <h5 className="font-bold text-white text-lg">Founder & Full Stack Web Developer</h5>
+                    <span className="text-sm font-bold text-primary">2024 – Present</span>
                   </div>
-                  <h6 className="text-white/60 font-semibold mb-3">Aaryav Technologies</h6>
+                  <h6 className="text-white/60 font-semibold mb-3">Abhi Technologies</h6>
                   <ul className="list-disc list-inside text-muted-foreground space-y-2 text-sm pl-2">
-                    <li>Developed responsive and modern websites using AI-assisted development tools.</li>
-                    <li>Converted client requirements into effective AI prompts for building functional web applications.</li>
-                    <li>Built and customized website interfaces using HTML5, CSS3, and JavaScript.</li>
-                    <li>Debugged and manually corrected AI-generated code to improve functionality and performance.</li>
-                    <li>Optimized website speed, responsiveness, and user experience across multiple devices.</li>
-                    <li>Tested websites on different browsers to ensure compatibility and consistency.</li>
+                    <li>Founded and scaled Abhi Technologies delivering 100+ premium websites.</li>
+                    <li>Built responsive business websites, e-commerce stores and custom web applications.</li>
+                    <li>Developed admin dashboards, landing pages and SaaS platforms for clients.</li>
+                    <li>Implemented SEO optimization, performance tuning and mobile-first design.</li>
+                    <li>Provided lifetime technical support and website maintenance services.</li>
                   </ul>
                 </div>
               </div>
@@ -168,15 +168,15 @@ export function ResumePreviewSection() {
                 <div>
                   <h5 className="font-bold text-white/80 mb-2 text-sm uppercase tracking-wider">Frontend Technologies</h5>
                   <div className="flex flex-wrap gap-2">
-                    {["HTML5", "CSS3", "JavaScript (ES6+)", "Responsive Web Design", "UI Development"].map(s => (
+                    {["HTML5", "CSS3", "JavaScript (ES6+)", "React.js", "Next.js", "Responsive Design", "UI/UX"].map(s => (
                       <span key={s} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/80">{s}</span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h5 className="font-bold text-white/80 mb-2 text-sm uppercase tracking-wider">AI & Dev Tools</h5>
+                  <h5 className="font-bold text-white/80 mb-2 text-sm uppercase tracking-wider">Backend & Tools</h5>
                   <div className="flex flex-wrap gap-2">
-                    {["ChatGPT", "Lovable", "Antigravity IDE", "AI Prompt Engineering", "Debugging", "Git & GitHub"].map(s => (
+                    {["Node.js", "Supabase", "PostgreSQL", "REST APIs", "Git & GitHub", "Vercel", "Netlify"].map(s => (
                       <span key={s} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/80">{s}</span>
                     ))}
                   </div>

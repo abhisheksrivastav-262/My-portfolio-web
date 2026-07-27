@@ -8,7 +8,7 @@ const achievements = [
   {
     icon: Trophy,
     title: "Hackathon Winner",
-    description: "First place in National Level CodeFest 2024 for building an innovative AI-driven educational platform."
+    description: "First place in a web development competition for building an innovative educational platform with modern web technologies."
   },
   {
     icon: Star,

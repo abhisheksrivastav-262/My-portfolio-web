@@ -32,7 +32,7 @@ export function EducationSection() {
                 <h3 className="text-3xl font-bold text-white mb-2">Bachelor of Computer Applications (BCA)</h3>
                 <h4 className="text-xl text-white/60 mb-6">Sharda University</h4>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  Focusing on advanced computer science principles, full-stack development, database architecture, and artificial intelligence. Consistently maintaining top grades while actively participating in tech clubs, hackathons, and open-source contributions.
+                  Focusing on advanced computer science principles, full-stack development, database architecture and modern web technologies. Actively participating in tech clubs, hackathons, and building real-world projects while maintaining strong academic performance.
                 </p>
               </div>
             </div>

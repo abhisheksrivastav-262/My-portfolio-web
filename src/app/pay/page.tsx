@@ -71,13 +71,15 @@ export default function PayPage() {
               <div className="w-full flex flex-col items-center">
                 <h2 className="text-xl font-bold text-foreground mb-4">Scan QR Code</h2>
                 {/* QR Code Container */}
-                <div className="w-56 h-56 rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-4 relative shadow-lg">
-                  {/* QR Placeholder Icon */}
-                  <QrCode className="w-40 h-40 text-slate-800" />
-                  <span className="absolute bottom-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Placeholder</span>
+                <div className="w-64 h-64 rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-2 relative shadow-lg overflow-hidden">
+                  <img
+                    src="/payment-qr.png"
+                    alt="Abhishek Srivastav UPI Payment QR Code"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <p className="text-xs text-muted-foreground mt-4">
-                  Open any UPI app (GPay, PhonePe, Paytm) to scan.
+                  Open any UPI app (GPay, PhonePe, Paytm, BHIM) to scan.
                 </p>
               </div>
 

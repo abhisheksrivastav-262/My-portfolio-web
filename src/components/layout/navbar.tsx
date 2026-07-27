@@ -89,7 +89,7 @@ export function Navbar() {
   return (
     <motion.header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-300 border-b",
+        "fixed top-0 left-0 right-0 z-[9999] w-full transition-colors duration-300 border-b",
         scrolled
           ? "border-border bg-background/80 backdrop-blur-md py-3 shadow-sm"
           : "border-transparent bg-background/50 backdrop-blur-sm py-4"

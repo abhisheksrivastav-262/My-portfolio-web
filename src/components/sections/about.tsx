@@ -65,8 +65,8 @@ export function AboutSection() {
               {/* Profile Image */}
               <div className="w-full h-full rounded-2xl overflow-hidden relative">
                 <img
-                  src="/logo.png"
-                  alt="Abhi Technologies Logo"
+                  src="/about.png"
+                  alt="Abhishek Srivastav - Founder"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   onError={(e) => {
                     (e.target as HTMLElement).style.opacity = "0";

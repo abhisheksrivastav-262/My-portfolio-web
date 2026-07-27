@@ -16,10 +16,6 @@ export default function AboutPage() {
 
       <div className="flex-1 w-full flex flex-col">
         <AboutSection />
-        <MissionSection />
-        <TimelineSection />
-        <SkillsSection />
-        <CTASection />
       </div>
     </main>
   );

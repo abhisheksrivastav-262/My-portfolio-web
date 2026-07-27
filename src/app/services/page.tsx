@@ -15,9 +15,6 @@ export default function ServicesPage() {
 
       <div className="flex-1 w-full flex flex-col">
         <ServicesSection />
-        <WhyMeSection />
-        <PricingSection />
-        <CTASection />
       </div>
     </main>
   );

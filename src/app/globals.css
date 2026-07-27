@@ -127,7 +127,6 @@
     background-attachment: fixed;
     /* Hardware acceleration on body scroll */
     -webkit-overflow-scrolling: touch;
-    transform: translateZ(0);
   }
   section {
     @apply bg-transparent;

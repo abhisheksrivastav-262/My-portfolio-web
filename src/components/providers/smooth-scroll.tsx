@@ -22,8 +22,23 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     requestAnimationFrame(raf);
 
+    // Watch for DOM layout changes to update scrolling height caches
+    const resizeObserver = new ResizeObserver(() => {
+      lenis.resize();
+    });
+    
+    if (document.body) {
+      resizeObserver.observe(document.body);
+    }
+
+    // Backup listener for browser window sizing
+    const handleResize = () => lenis.resize();
+    window.addEventListener("resize", handleResize);
+
     return () => {
       lenis.destroy();
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

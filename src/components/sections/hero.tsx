@@ -112,19 +112,22 @@ export function HeroSection() {
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         <GlassCard tilt3d={true} hoverEffect={true} className="p-8 md:p-16 max-w-4xl w-full text-center">
-          {/* Offer Badge */}
+          {/* Premium Brand Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/40 backdrop-blur-md mb-8"
+            className="inline-flex items-center gap-4 px-6 py-2.5 rounded-full border border-border bg-card shadow-md mb-8 hover:border-primary/20 transition-all duration-300 select-none"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-            </span>
-            <span className="text-sm font-semibold text-foreground/80 tracking-wide uppercase">🔥 LIMITED TIME OFFER</span>
-            <Sparkles className="w-4 h-4 text-secondary ml-1 animate-pulse" />
+            <img
+              src="/logo.png"
+              alt="Abhi Technologies Logo"
+              className="w-8 h-8 object-contain shrink-0"
+            />
+            <div className="text-left leading-tight">
+              <p className="text-sm font-black text-foreground">Abhi Technologies</p>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Premium Web Development Agency</p>
+            </div>
           </motion.div>
 
           <motion.h1

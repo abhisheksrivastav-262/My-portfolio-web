@@ -111,15 +111,28 @@
   * {
     @apply border-border outline-ring/50 transition-colors duration-300;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+  }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-white transition-colors duration-500;
     background-image: 
       radial-gradient(at 0% 0%, var(--primary-glow, rgba(139, 92, 246, 0.07)) 0px, transparent 50%),
       radial-gradient(at 100% 100%, var(--secondary-glow, rgba(6, 182, 212, 0.05)) 0px, transparent 50%);
     background-attachment: fixed;
+    /* Hardware acceleration on body scroll */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
   }
   section {
     @apply bg-transparent;
+    /* Prevent paint flashes on scroll */
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
   }
 }
 

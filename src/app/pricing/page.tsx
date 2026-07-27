@@ -19,8 +19,6 @@ export default function PricingPage() {
 
       <div className="flex-1 w-full flex flex-col">
         <PricingFullSection />
-        <WhyMeSection />
-        <CTASection />
       </div>
     </main>
   );

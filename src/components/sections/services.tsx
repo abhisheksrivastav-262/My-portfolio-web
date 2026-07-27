@@ -35,18 +35,18 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     icon: Briefcase,
     title: "Business Website",
-    price: "₹4,999+",
+    price: "₹2,999+",
     badge: "Most Popular",
     badgeColor: "bg-secondary/20 border-secondary/40 text-secondary",
     delivery: "5-7 Days",
     deliveryType: "Full Delivery",
     description: "Professional multi-page business websites with custom design, contact forms, advanced SEO, and all essential features.",
-    features: ["Multi-page Design (5-10 pages)", "Premium UI/UX", "Contact Forms", "Google Maps Integration", "SEO Optimization", "1 Year Hosting"]
+    features: ["Multi-page Design (5-10 pages)", "Premium UI/UX", "Contact Forms", "Google Maps Integration", "SEO Optimization", "1 Year Hosting", "Admin Panel", "Domain"]
   },
   {
     icon: ShoppingCart,
     title: "E-Commerce Website",
-    price: "₹9,999+",
+    price: "₹6,999+",
     badge: "Full Store",
     badgeColor: "bg-amber-500/20 border-amber-500/40 text-amber-500",
     delivery: "7-14 Days",
@@ -194,7 +194,7 @@ export function ServicesSection() {
                       <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                         <service.icon className="w-6 h-6 text-primary" />
                       </div>
-                      
+
                       {/* Title & Badge */}
                       <div>
                         <div className="flex flex-wrap items-center gap-2 mb-1">

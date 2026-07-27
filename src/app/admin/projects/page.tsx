@@ -34,7 +34,11 @@ interface Project {
   sort_order: number;
 }
 
-const CATEGORIES = ["Featured", "E-Commerce", "SaaS", "Portfolio", "Other"];
+const CATEGORIES = [
+  "₹299 Website Samples",
+  "Premium & Custom Projects",
+  "E-Commerce Websites"
+];
 
 export default function ProjectsAdminPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -378,7 +382,7 @@ export default function ProjectsAdminPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-white/80">Category</label>
                   <select
-                    value={activeProject.category || "Featured"}
+                    value={activeProject.category || "₹299 Website Samples"}
                     onChange={(e) => setActiveProject({ ...activeProject, category: e.target.value })}
                     className="w-full bg-[#0d0a1d] border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary/50 transition-colors"
                   >

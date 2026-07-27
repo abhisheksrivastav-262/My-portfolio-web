@@ -3,7 +3,6 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 const ProjectsSection = dynamic(() => import("@/components/sections/projects").then(mod => mod.ProjectsSection));
-const ProcessSection = dynamic(() => import("@/components/sections/process").then(mod => mod.ProcessSection));
 
 export default function ProjectsPage() {
   return (
@@ -13,7 +12,6 @@ export default function ProjectsPage() {
       
       <div className="flex-1 w-full flex flex-col">
         <ProjectsSection />
-        <ProcessSection />
       </div>
     </main>
   );

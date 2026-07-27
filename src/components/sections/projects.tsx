@@ -12,7 +12,7 @@ interface Project {
   description: string;
   url: string;
   githubUrl?: string;
-  category: "Budget Websites" | "Premium Websites";
+  category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites";
   priceLabel: string;
   tags: string[];
   image: string;
@@ -25,7 +25,7 @@ const PROJECTS: Project[] = [
     description: "A comprehensive real estate and property management platform designed to simplify property searching, buying, and renting with an intuitive user interface.",
     url: "https://apna-pan-pro-main.vercel.app",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Premium Websites",
+    category: "Premium & Custom Projects",
     priceLabel: "Custom Pricing",
     tags: ["React", "Next.js", "Tailwind CSS", "Node.js"],
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800",
@@ -36,7 +36,7 @@ const PROJECTS: Project[] = [
     description: "A premium e-commerce showcase for athletic wear, featuring a modern glassmorphism design, high-performance animations, and an engaging product discovery experience.",
     url: "https://hgs-sportswear-showcase.lovable.app",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Premium Websites",
+    category: "E-Commerce Websites",
     priceLabel: "Custom Pricing",
     tags: ["E-commerce", "Framer Motion", "React", "TypeScript"],
     image: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&q=80&w=800",
@@ -47,7 +47,7 @@ const PROJECTS: Project[] = [
     description: "A highly responsive, lightning-fast single-page landing page featuring appointment booking, services display, and interactive contact form.",
     url: "#",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Budget Websites",
+    category: "₹299 Website Samples",
     priceLabel: "₹299",
     tags: ["Next.js", "Tailwind CSS", "WhatsApp Integration"],
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800",
@@ -58,7 +58,7 @@ const PROJECTS: Project[] = [
     description: "Elegant and minimal single-page portfolio layout for showcasing individual creative services, completed projects, and personal branding details.",
     url: "#",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Budget Websites",
+    category: "₹299 Website Samples",
     priceLabel: "₹299",
     tags: ["React", "Vercel Hosting", "Glassmorphic UI"],
     image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800",
@@ -69,7 +69,7 @@ const PROJECTS: Project[] = [
     description: "A stunning beauty and cosmetics brand showcase with magnetic hover effects, vibrant color palettes, and fluid page transitions.",
     url: "https://brandoraglow-in.lovable.app",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Premium Websites",
+    category: "E-Commerce Websites",
     priceLabel: "Custom Pricing",
     tags: ["Beauty", "Showcase", "Animations", "React"],
     image: "https://images.unsplash.com/photo-1596462502278-27bf85033e5a?auto=format&fit=crop&q=80&w=800",
@@ -80,14 +80,14 @@ const PROJECTS: Project[] = [
     description: "An attractive single-page bistro menu website with WhatsApp ordering triggers, location guide maps, and operating hour alerts.",
     url: "#",
     githubUrl: "https://github.com/abhisheksrivastav-262",
-    category: "Budget Websites",
+    category: "₹299 Website Samples",
     priceLabel: "₹299",
     tags: ["HTML5", "CSS3", "Mobile Optimized"],
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
   }
 ];
 
-const CATEGORIES = ["All", "Budget Websites", "Premium Websites"];
+const CATEGORIES = ["All", "₹299 Website Samples", "Premium & Custom Projects", "E-Commerce Websites"];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -214,6 +214,47 @@ export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [projectList, setProjectList] = useState<Project[]>(PROJECTS);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("*")
+          .order("sort_order", { ascending: true });
+
+        if (error) throw error;
+        if (data && data.length > 0) {
+          const mapped: Project[] = data.map((p: any) => {
+            // Map table categories cleanly
+            let category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites" = "₹299 Website Samples";
+            if (p.category === "Premium & Custom Projects" || p.category === "Premium Websites") {
+              category = "Premium & Custom Projects";
+            } else if (p.category === "E-Commerce Websites" || p.category === "E-Commerce") {
+              category = "E-Commerce Websites";
+            }
+
+            return {
+              id: p.id || String(p.sort_order),
+              name: p.title,
+              description: p.description,
+              url: p.live_url || "#",
+              githubUrl: p.github_url || undefined,
+              category: category,
+              priceLabel: category === "₹299 Website Samples" ? "₹299" : "Custom Pricing",
+              tags: p.tech_stack || [],
+              image: p.thumbnail_url || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800"
+            };
+          });
+          setProjectList(mapped);
+        }
+      } catch (err) {
+        console.error("Failed to load projects from Supabase:", err);
+      }
+    }
+    fetchProjects();
+  }, []);
 
   const filteredProjects = projectList.filter((p) => {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;

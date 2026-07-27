@@ -27,6 +27,7 @@ export function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState("Home");
 
   React.useEffect(() => {
     setMounted(true);
@@ -35,6 +36,47 @@ export function Navbar() {
   useMotionValueEvent(scrollY, "change", (y) => {
     setScrolled(y > 50);
   });
+
+  // Track active section on home page scrolling
+  React.useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = ["home", "services", "pricing", "projects", "about", "contact"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-40% 0px -50% 0px",
+      threshold: 0
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const matchedLink = NAV_LINKS.find(link => {
+            if (id === "home") return link.href === "/";
+            return link.href === `/${id}` || link.href === `/projects` && id === "projects";
+          });
+          if (matchedLink) {
+            setActiveSection(matchedLink.name);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, [pathname]);
 
   if (pathname?.startsWith("/admin")) {
     return null;
@@ -77,17 +119,18 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1 bg-muted/30 border border-border rounded-full px-2 py-1.5 backdrop-blur-md">
           {NAV_LINKS.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname === link.href || pathname?.startsWith(link.href + "/");
+            const isHome = pathname === "/";
+            const isActive = isHome 
+              ? activeSection === link.name 
+              : pathname === link.href || pathname?.startsWith(link.href + "/");
+
             return (
               <Link
                 key={link.name}
-                href={link.href}
+                href={isHome && link.href.startsWith("/") && link.href !== "/" && link.href !== "/pay" ? `#${link.href.replace("/", "")}` : link.href}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors rounded-full group",
-                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <span className="relative z-10">{link.name}</span>
@@ -150,25 +193,28 @@ export function Navbar() {
           </div>
           <SheetContent side="right" className="w-full sm:w-[400px] border-none bg-background/95 backdrop-blur-2xl p-8 flex flex-col justify-center">
             <div className="flex flex-col gap-6 text-center">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "text-3xl font-bold transition-all duration-300 inline-block hover:pl-4",
-                      pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+               {NAV_LINKS.map((link, i) => {
+                 const isHome = pathname === "/";
+                 return (
+                   <motion.div
+                     key={link.name}
+                     initial={{ opacity: 0, y: 20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ delay: 0.05 + i * 0.05 }}
+                   >
+                     <Link
+                       href={isHome && link.href.startsWith("/") && link.href !== "/" && link.href !== "/pay" ? `#${link.href.replace("/", "")}` : link.href}
+                       onClick={() => setOpen(false)}
+                       className={cn(
+                         "text-3xl font-bold transition-all duration-300 inline-block hover:pl-4",
+                         (isHome ? activeSection === link.name : pathname === link.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                       )}
+                     >
+                       {link.name}
+                     </Link>
+                   </motion.div>
+                 );
+               })}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

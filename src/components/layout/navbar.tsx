@@ -89,14 +89,14 @@ export function Navbar() {
   return (
     <motion.header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-300 border-b",
         scrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-2xl py-3"
-          : "bg-transparent border-transparent py-5"
+          ? "border-border bg-background/80 backdrop-blur-md py-3 shadow-sm"
+          : "border-transparent bg-background/50 backdrop-blur-sm py-4"
       )}
-      initial={{ y: -100 }}
+      initial={{ y: 0 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}

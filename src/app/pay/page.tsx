@@ -71,7 +71,7 @@ export default function PayPage() {
               <div className="w-full flex flex-col items-center">
                 <h2 className="text-xl font-bold text-foreground mb-4">Scan QR Code</h2>
                 {/* QR Code Container */}
-                <div className="w-64 h-64 rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-2 relative shadow-lg overflow-hidden">
+                <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-3 relative shadow-lg overflow-hidden">
                   <img
                     src="/payment-qr.png"
                     alt="Abhishek Srivastav UPI Payment QR Code"

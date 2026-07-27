@@ -224,7 +224,7 @@ export function ProjectsSection() {
   });
 
   return (
-    <section id="projects" className="py-32 relative z-10 border-t border-white/5 bg-[#02010a]">
+    <section id="projects" className="py-32 relative z-10 border-t border-border bg-transparent">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 

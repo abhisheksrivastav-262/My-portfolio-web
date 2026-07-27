@@ -46,7 +46,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-32 relative z-10 border-t border-white/5 bg-[#020202]">
+    <section id="contact" className="py-32 relative z-10 border-t border-border bg-transparent">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.07),transparent_55%)] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">

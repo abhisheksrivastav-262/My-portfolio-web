@@ -36,7 +36,7 @@ const GRID_REASONS = [
 
 export function WhyMeSection() {
   return (
-    <section className="py-32 relative z-10 border-t border-white/5 bg-[#050505]">
+    <section className="py-32 relative z-10 border-t border-border bg-transparent">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.h2

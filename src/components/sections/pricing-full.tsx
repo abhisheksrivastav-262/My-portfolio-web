@@ -87,7 +87,7 @@ const PLANS = [
 
 export function PricingFullSection() {
   return (
-    <section id="pricing" className="py-32 relative z-10 bg-[#050505]">
+    <section id="pricing" className="py-32 relative z-10 bg-transparent border-t border-border">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.07),transparent_60%)] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">

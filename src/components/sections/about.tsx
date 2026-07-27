@@ -5,7 +5,7 @@ import { GlassCard } from "../ui/glass-card";
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-32 relative z-10 border-t border-white/5 bg-[#020202]">
+    <section id="about" className="py-32 relative z-10 border-t border-border bg-transparent">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div

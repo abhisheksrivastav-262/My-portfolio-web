@@ -10,13 +10,14 @@ import { Copy, Check, QrCode, Phone, Mail, Globe, Sparkles } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa";
 
 export default function PayPage() {
-  const upiId = "8140353442@paytm";
+  const upiId = "abhisheksrivastav262-2@okicici";
   const [copied, setCopied] = useState(false);
   const [amount, setAmount] = useState("");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(upiId);
     setCopied(true);
+    alert("UPI ID copied successfully.");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -70,8 +71,8 @@ export default function PayPage() {
               
               <div className="w-full flex flex-col items-center">
                 <h2 className="text-xl font-bold text-foreground mb-4">Scan QR Code</h2>
-                {/* QR Code Container */}
-                <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-3 relative shadow-lg overflow-hidden">
+                {/* QR Code Container - Significant sizing update to fill card space */}
+                <div className="w-full aspect-square max-w-[360px] rounded-2xl bg-white border border-border flex flex-col items-center justify-center p-4 relative shadow-lg overflow-hidden">
                   <img
                     src="/payment-qr.png"
                     alt="Abhishek Srivastav UPI Payment QR Code"
@@ -87,10 +88,10 @@ export default function PayPage() {
               <div className="w-full mt-8 pt-6 border-t border-border">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-2">UPI ID</p>
                 <div className="flex items-center gap-2 bg-muted/50 border border-border rounded-xl p-3 justify-between">
-                  <span className="text-sm font-bold text-foreground font-mono">{upiId}</span>
+                  <span className="text-xs sm:text-sm font-bold text-foreground font-mono truncate mr-2">{upiId}</span>
                   <button
                     onClick={handleCopy}
-                    className="p-2 hover:bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-all"
+                    className="p-2 hover:bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-all shrink-0"
                     aria-label="Copy UPI ID"
                   >
                     {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}

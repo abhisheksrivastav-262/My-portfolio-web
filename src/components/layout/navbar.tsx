@@ -120,8 +120,8 @@ export function Navbar() {
         <nav className="hidden md:flex items-center gap-1 bg-muted/30 border border-border rounded-full px-2 py-1.5 backdrop-blur-md">
           {NAV_LINKS.map((link) => {
             const isHome = pathname === "/";
-            const isActive = isHome 
-              ? activeSection === link.name 
+            const isActive = isHome
+              ? activeSection === link.name
               : pathname === link.href || pathname?.startsWith(link.href + "/");
 
             return (
@@ -146,7 +146,7 @@ export function Navbar() {
               </Link>
             );
           })}
-          
+
           {/* Theme Toggle Button next to Pay link */}
           <button
             onClick={toggleTheme}
@@ -193,28 +193,28 @@ export function Navbar() {
           </div>
           <SheetContent side="right" className="w-full sm:w-[400px] border-none bg-background/95 backdrop-blur-2xl p-8 flex flex-col justify-center">
             <div className="flex flex-col gap-6 text-center">
-               {NAV_LINKS.map((link, i) => {
-                 const isHome = pathname === "/";
-                 return (
-                   <motion.div
-                     key={link.name}
-                     initial={{ opacity: 0, y: 20 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     transition={{ delay: 0.05 + i * 0.05 }}
-                   >
-                     <Link
-                       href={isHome && link.href.startsWith("/") && link.href !== "/" && link.href !== "/pay" ? `#${link.href.replace("/", "")}` : link.href}
-                       onClick={() => setOpen(false)}
-                       className={cn(
-                         "text-3xl font-bold transition-all duration-300 inline-block hover:pl-4",
-                         (isHome ? activeSection === link.name : pathname === link.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                       )}
-                     >
-                       {link.name}
-                     </Link>
-                   </motion.div>
-                 );
-               })}
+              {NAV_LINKS.map((link, i) => {
+                const isHome = pathname === "/";
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05 }}
+                  >
+                    <Link
+                      href={isHome && link.href.startsWith("/") && link.href !== "/" && link.href !== "/pay" ? `#${link.href.replace("/", "")}` : link.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-3xl font-bold transition-all duration-300 inline-block hover:pl-4",
+                        (isHome ? activeSection === link.name : pathname === link.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                );
+              })}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

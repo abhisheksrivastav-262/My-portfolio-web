@@ -12,7 +12,7 @@ interface Project {
   description: string;
   url: string;
   githubUrl?: string;
-  category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites";
+  category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites" | "Multipage Websites";
   priceLabel: string;
   tags: string[];
   image: string;
@@ -87,7 +87,7 @@ const PROJECTS: Project[] = [
   }
 ];
 
-const CATEGORIES = ["All", "₹299 Website Samples", "Premium & Custom Projects", "E-Commerce Websites"];
+const CATEGORIES = ["All", "₹299 Website Samples", "Premium & Custom Projects", "E-Commerce Websites", "Multipage Websites"];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -228,11 +228,13 @@ export function ProjectsSection() {
         if (data && data.length > 0) {
           const mapped: Project[] = data.map((p: any) => {
             // Map table categories cleanly
-            let category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites" = "₹299 Website Samples";
+            let category: "₹299 Website Samples" | "Premium & Custom Projects" | "E-Commerce Websites" | "Multipage Websites" = "₹299 Website Samples";
             if (p.category === "Premium & Custom Projects" || p.category === "Premium Websites") {
               category = "Premium & Custom Projects";
             } else if (p.category === "E-Commerce Websites" || p.category === "E-Commerce") {
               category = "E-Commerce Websites";
+            } else if (p.category === "Multipage Websites") {
+              category = "Multipage Websites";
             }
 
             return {

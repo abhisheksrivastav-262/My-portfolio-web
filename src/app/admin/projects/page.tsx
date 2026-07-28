@@ -37,7 +37,8 @@ interface Project {
 const CATEGORIES = [
   "₹299 Website Samples",
   "Premium & Custom Projects",
-  "E-Commerce Websites"
+  "E-Commerce Websites",
+  "Multipage Websites"
 ];
 
 export default function ProjectsAdminPage() {

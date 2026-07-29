@@ -253,6 +253,7 @@ export function ContactSection() {
                         <option value="Single Page Website">Single Page Website</option>
                         <option value="Business Website">Business Website</option>
                         <option value="Portfolio Website">Portfolio Website</option>
+                        <option value="Multipage Website">Multipage Website</option>
                         <option value="E-Commerce Website">E-Commerce Website</option>
                         <option value="Landing Page">Landing Page</option>
                         <option value="Custom Web Development">Custom Web Development</option>

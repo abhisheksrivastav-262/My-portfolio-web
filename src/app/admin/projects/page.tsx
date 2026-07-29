@@ -24,7 +24,7 @@ interface Project {
   id: string;
   title: string;
   description: string;
-  thumbnail_url: string;
+  thumbnail_url?: string;
   live_url: string;
   github_url?: string;
   tech_stack: string[];
@@ -47,7 +47,7 @@ export default function ProjectsAdminPage() {
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [activeProject, setActiveProject] = useState<Partial<Project> | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+
   const [techInput, setTechInput] = useState("");
 
   const loadProjects = async () => {
@@ -111,7 +111,6 @@ export default function ProjectsAdminPage() {
     setActiveProject({
       title: "",
       description: "",
-      thumbnail_url: "",
       live_url: "",
       github_url: "",
       tech_stack: [],
@@ -247,45 +246,6 @@ export default function ProjectsAdminPage() {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !supabase) return;
-
-    setIsUploading(true);
-    setError("");
-
-    try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `thumbnails/${fileName}`;
-
-      // Upload file to Supabase storage bucket 'media'
-      const { error: uploadError } = await supabase.storage
-        .from("media")
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from("media")
-        .getPublicUrl(filePath);
-
-      // Save to media metadata table
-      await supabase.from("media").insert([{
-        file_name: file.name,
-        file_path: filePath,
-        file_url: publicUrl,
-        mime_type: file.type,
-        size_bytes: file.size,
-      }]);
-
-      setActiveProject((prev) => ({ ...prev, thumbnail_url: publicUrl }));
-    } catch (err: any) {
-      setError("Failed to upload thumbnail. Using manual URL input is recommended if 'media' storage bucket is not configured.");
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
   const moveProject = async (index: number, direction: "up" | "down") => {
     if (direction === "up" && index === 0) return;
@@ -446,47 +406,7 @@ export default function ProjectsAdminPage() {
                 />
               </div>
 
-              {/* Thumbnail Image URL / Upload */}
-              <div className="space-y-4">
-                <label className="text-sm font-semibold text-white/80 block">Thumbnail Image</label>
-                
-                <div className="flex flex-col md:flex-row items-center gap-4">
-                  <div className="w-full flex-1">
-                    <input
-                      type="text"
-                      required
-                      placeholder="https://example.com/image.png"
-                      value={activeProject.thumbnail_url || ""}
-                      onChange={(e) => setActiveProject({ ...activeProject, thumbnail_url: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                  </div>
-                  
-                  <div className="w-full md:w-auto flex items-center gap-2">
-                    <label className="flex items-center justify-center gap-2 cursor-pointer bg-white/5 border border-white/10 hover:bg-white/10 transition-colors py-3 px-6 rounded-xl font-bold text-sm select-none">
-                      <Upload className="w-4 h-4" />
-                      <span>Upload Image</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                    </label>
-                    {isUploading && <RefreshCw className="w-4 h-4 animate-spin text-primary" />}
-                  </div>
-                </div>
 
-                {activeProject.thumbnail_url && (
-                  <div className="relative w-40 h-24 rounded-lg overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
-                    <img 
-                      src={activeProject.thumbnail_url} 
-                      alt="Thumbnail Preview" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
 
               {/* Toggles */}
               <div className="flex gap-8">
@@ -554,7 +474,7 @@ export default function ProjectsAdminPage() {
               <thead>
                 <tr className="border-b border-white/5 text-left text-xs font-bold text-white/40 uppercase tracking-wider">
                   <th className="p-6">Sort</th>
-                  <th className="p-6">Thumbnail</th>
+
                   <th className="p-6">Details</th>
                   <th className="p-6">Category</th>
                   <th className="p-6">Status</th>
@@ -584,16 +504,7 @@ export default function ProjectsAdminPage() {
                       </div>
                     </td>
 
-                    {/* Image */}
-                    <td className="p-6">
-                      <div className="w-20 h-12 rounded-lg overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center relative">
-                        {proj.thumbnail_url ? (
-                          <img src={proj.thumbnail_url} alt={proj.title} className="w-full h-full object-cover" />
-                        ) : (
-                          <ImageIcon className="w-5 h-5 text-white/30" />
-                        )}
-                      </div>
-                    </td>
+
 
                     {/* Details */}
                     <td className="p-6">

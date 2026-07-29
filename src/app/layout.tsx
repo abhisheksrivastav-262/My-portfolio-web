@@ -10,6 +10,7 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { PageTransition } from "@/components/ui/page-transition";
 import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { ImagePreloader } from "@/components/ui/image-preloader";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
               <Footer />
               <WhatsAppFloat />
               <ScrollToTop />
+              <ImagePreloader />
             </div>
           </ThemeProvider>
         </SmoothScroll>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Search } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { supabase } from "@/lib/supabase";
@@ -18,7 +19,7 @@ interface Project {
   image: string;
 }
 
-const PROJECTS: Project[] = [
+export const PROJECTS: Project[] = [
   {
     id: "apna-pan-pro",
     name: "Apna Pan Pro",
@@ -90,122 +91,38 @@ const PROJECTS: Project[] = [
 const CATEGORIES = ["All", "₹299 Website Samples", "Premium & Custom Projects", "E-Commerce Websites", "Multipage Websites"];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    x.set(mouseX / width - 0.5);
-    y.set(mouseY / height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <motion.div
-      ref={ref}
       layout
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="group relative flex flex-col w-full rounded-[2rem] bg-white/5 border border-white/10 overflow-hidden shadow-2xl min-h-[580px]"
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="group flex flex-col w-full rounded-2xl bg-card border border-border hover:border-primary/50 transition-all shadow-sm hover:shadow-md overflow-hidden"
     >
-      <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 mix-blend-screen"
-        style={{ background: "radial-gradient(circle at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 70%)" }}
-      />
-      
-      {/* Thumbnail Container */}
-      <div className="relative w-full aspect-video overflow-hidden bg-black/40 rounded-t-[2rem] border-b border-white/5 flex items-center justify-center flex-shrink-0">
-        <motion.img 
-          src={project.image} 
-          alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute top-4 right-4 z-10 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur-md border border-border text-xs font-black text-primary">
-          {project.priceLabel}
-        </div>
-      </div>
-
-      <div 
-        className="flex-1 p-6 flex flex-col justify-between z-10"
-        style={{ transform: "translateZ(40px)" }}
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col p-6 w-full h-full"
       >
-        <div>
-          <span className="text-xs font-bold text-primary tracking-widest uppercase mb-1 block">
-            {project.category}
-          </span>
-          <h3 className="text-2xl md:text-3xl font-black text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h3 className="font-bold text-foreground text-base group-hover:text-primary transition-colors line-clamp-1">
             {project.name}
           </h3>
-          <p className="text-muted-foreground line-clamp-3 mb-4 text-sm leading-relaxed">
-            {project.description}
-          </p>
+          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors mt-0.5" />
         </div>
-
-        <div>
-          <div className="flex flex-wrap gap-1.5 mb-6">
-            {project.tags.map((tag) => (
-              <span 
-                key={tag}
-                className="px-3.5 py-1 rounded-full bg-muted backdrop-blur-md border border-border text-[11px] font-bold uppercase tracking-wider text-foreground"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground text-xs font-bold tracking-wide shadow-[0_0_15px_rgba(139,92,246,0.25)] hover:opacity-90 hover:scale-105 transition-all"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Live Demo
-            </a>
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-full bg-muted border border-border text-foreground text-xs font-bold hover:bg-muted/80 transition-all"
-              >
-                <FaGithub className="w-3.5 h-3.5" />
-                GitHub
-              </a>
-            )}
-            <a
-              href="/contact"
-              className="ml-auto text-xs text-muted-foreground hover:text-foreground font-bold transition-all"
-            >
-              Get Started →
-            </a>
-          </div>
+        
+        <p className="text-muted-foreground text-sm line-clamp-1 mb-6 flex-1">
+          {project.description}
+        </p>
+        
+        <div className="mt-auto">
+          <span className="text-[13px] font-semibold text-primary">
+            {project.priceLabel}
+          </span>
         </div>
-      </div>
+      </a>
     </motion.div>
   );
 }
@@ -290,7 +207,7 @@ export function ProjectsSection() {
         </div>
 
         {/* Filters and Search Bar Row */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 max-w-7xl mx-auto mb-16">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 max-w-6xl mx-auto mb-12">
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map(category => (
@@ -321,7 +238,7 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto perspective-1000">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />

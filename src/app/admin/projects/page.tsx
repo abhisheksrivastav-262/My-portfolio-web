@@ -142,6 +142,7 @@ export default function ProjectsAdminPage() {
     const projectToSave = {
       ...activeProject,
       tech_stack: parsedTech,
+      thumbnail_url: activeProject.thumbnail_url || null,
     };
 
     try {
